@@ -1,0 +1,15 @@
+name: Keep Streamlit App Warm
+
+on:
+  schedule:
+    # Τρέχει κάθε 10 λεπτά
+    - cron: '*/10 * * * *'
+  workflow_dispatch: # Σου επιτρέπει να το τρέχεις και χειροκίνητα
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Streamlit App
+        run: |
+          curl -I https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/
