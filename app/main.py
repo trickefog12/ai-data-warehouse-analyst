@@ -61,7 +61,7 @@ if data_source:
 
     with c2:
         st.subheader("Order Status Distribution")
-        status_counts = df['Status'].value_value_counts()
+        status_counts = df['Status'].value_counts()
         fig, ax = plt.subplots()
         sns.barplot(x=status_counts.index, y=status_counts.values, ax=ax, palette="viridis")
         st.pyplot(fig)
