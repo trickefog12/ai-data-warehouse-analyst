@@ -2,8 +2,8 @@ name: Keep Streamlit App Warm
 
 on:
   schedule:
-    # Τρέχει κάθε 10 λεπτά
-    - cron: '*/10 * * * *'
+    # Τρέχει κάθε 60 λεπτά
+    - cron: '*/60 * * * *'
   workflow_dispatch: # Σου επιτρέπει να το τρέχεις και χειροκίνητα
 
 jobs:
