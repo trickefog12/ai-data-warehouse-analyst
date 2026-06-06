@@ -1,15 +1,22 @@
 name: Keep Streamlit App Warm
-
 on:
   schedule:
-    # Τρέχει κάθε 60 λεπτά
-    - cron: '0 * * * *'
-  workflow_dispatch: # Σου επιτρέπει να το τρέχεις και χειροκίνητα
+    # Κάθε 15 λεπτά (UTC)
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit App
+      - name: Ping Streamlit App (GET + validate)
         run: |
-          curl -I https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/
+          set -e
+          URL="https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/?ping=$(date +%s)"
+          echo "Pinging: $URL"
+          curl -L --fail --silent --show-error \
+            --max-time 30 \
+            -A "Mozilla/5.0" \
+            -o /dev/null \
+            -w "HTTP %{http_code} in %{time_total}s\n" \
+            "$URL"
