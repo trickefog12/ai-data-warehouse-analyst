@@ -8,14 +8,15 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit health
+      - name: Ping Streamlit health endpoint
         run: |
           set -e
           URL="https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/_stcore/health"
           echo "Pinging: $URL"
-          curl --fail --silent --show-error \
+          RESPONSE=$(curl --silent --show-error \
             --max-time 30 \
-            --retry 3 --retry-all-errors \
-            -o /dev/null \
-            -w "HTTP %{http_code} in %{time_total}s\n" \
-            "$URL"
+            --retry 2 \
+            -w "\nHTTP %{http_code} in %{time_total}s" \
+            "$URL")
+          echo "$RESPONSE"
+          echo "$RESPONSE" | grep -q "HTTP 200" && echo "✅ App is alive!" || (echo "❌ App not healthy" && exit 1)
