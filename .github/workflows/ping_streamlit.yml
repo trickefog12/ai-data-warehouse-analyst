@@ -1,21 +1,20 @@
 name: Keep Streamlit App Warm
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ping Streamlit health
+      - name: Hard Ping
         run: |
           set -e
-          URL="https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/_stcore/health"
+          URL="https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/"
           echo "Pinging: $URL"
-          curl --fail --silent --show-error \
-            --max-time 30 \
-            --retry 3 --retry-all-errors \
+          curl -L --fail --silent --show-error \
+            -A "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36" \
             -o /dev/null \
             -w "HTTP %{http_code} in %{time_total}s\n" \
             "$URL"
