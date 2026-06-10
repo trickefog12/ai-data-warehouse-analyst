@@ -1,7 +1,7 @@
 name: Keep Streamlit App Warm
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '0,30 * * * *'  # κάθε 30 λεπτά
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
       - name: Ping Streamlit health
         run: |
           set -e
-          URL="https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/_stcore/health"
+          URL="https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app"
           echo "Pinging: $URL"
           curl --fail --silent --show-error \
             --max-time 30 \
