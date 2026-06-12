@@ -1,27 +1,24 @@
-# Χρησιμοποιούμε μια ελαφριά έκδοση Python
 FROM python:3.11-slim
 
-# Ρυθμίσεις για να μην δημιουργεί ο Streamlit cache και να βλέπουμε τα logs αμέσως
+# Βασικές ρυθμίσεις Python
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Εγκατάσταση ΜΟΝΟ των απολύτως απαραίτητων
-RUN apt-get update && apt-get install -y \
-    build-essential \
+# Εγκατάσταση μόνο του curl για το health check
+RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Αντιγραφή των requirements και εγκατάσταση
+# Εγκατάσταση των Python πακέτων
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Αντιγραφή όλου του φακέλου
+# Αντιγραφή του κώδικα
 COPY . .
 
-# Το Streamlit τρέχει στην 8501
+# Εκτέλεση του app
 EXPOSE 8501
-
-# Εντολή εκτέλεσης
-ENTRYPOINT ["streamlit", "run", "app/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
+CMD ["streamlit", "run", "app/main.py", "--server.port=8501", "--server.address=0.0.0.0"]
