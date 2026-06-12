@@ -7,11 +7,10 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Εγκατάσταση απαραίτητων εργαλείων συστήματος
+# Εγκατάσταση ΜΟΝΟ των απολύτως απαραίτητων
 RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
-    software-properties-common \
     && rm -rf /var/lib/apt/lists/*
 
 # Αντιγραφή των requirements και εγκατάσταση
@@ -21,7 +20,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Αντιγραφή όλου του φακέλου
 COPY . .
 
-# Το Streamlit τρέχει στην 8501 (θα την αντιστοιχίσουμε στο Render)
+# Το Streamlit τρέχει στην 8501
 EXPOSE 8501
 
 # Εντολή εκτέλεσης
