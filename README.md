@@ -8,7 +8,7 @@ AI-powered Streamlit application for warehouse sales analysis, automated data cl
 
 ## Live Demo
 
-🔗 https://ai-data-warehouse-analyst-pnvmvqtubkga8zk4knpzxw.streamlit.app/
+🔗 https://ai-data-warehouse-analyst.onrender.com/
 
 ---
 
