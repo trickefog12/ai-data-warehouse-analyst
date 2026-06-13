@@ -46,7 +46,7 @@ The system was designed to simulate a lightweight business intelligence workflow
 - Seaborn
 
 ### DevOps / Automation
-- GitHub Actions
+- Render Actions
 - Playwright
 
 ### Deployment
@@ -63,12 +63,12 @@ The system was designed to simulate a lightweight business intelligence workflow
 ├── generate_data.py
 ├── requirements.txt
 ├── README.md
-└── .github/workflows/
+└── Dockerfile
 ```
 
 - `app/main.py` → Streamlit application entry point
 - `generate_data.py` → sample warehouse dataset generator
-- `.github/workflows/` → automated uptime monitoring workflow
+- `Dockerfile/Render` → automated uptime monitoring workflow
 
 ---
 
@@ -130,7 +130,7 @@ Revenue is calculated only for orders with `Shipped` status to better reflect co
 ### Streamlit Framework
 Streamlit was selected for rapid dashboard development and interactive data exploration.
 
-### GitHub Actions + Playwright
+### Dockerfile/Render + Playwright
 Playwright automation was used to maintain deployment responsiveness and demonstrate CI/CD automation concepts.
 
 ---
